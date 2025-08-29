@@ -1,19 +1,21 @@
+
 <div class="custom-banner-section">
-    <div class="banner-container">
-        <div class="banner-content">
-            <div class="banner-logo">
-                <span class="logo-text">TISSO VISISON</span>
-            </div>
-        <div class="banner-main">
-            <h1 class="banner-title">{{section.settings.banner_title }}</h1>
-            <p class="banner-subtitle">{{section.settings.banner_title}}</p>
-            <div class="banner-buttons">
-                <a href="{{section.settings.primary_button_link }}" class="btn btn-primary animated-btn">
-                    {{section.settings.primary_button_text }}
-                </a>
-            </div>
+  <div class="banner-container">
+    <div class="banner-content">
+      <div class="banner-logo">
+        <span class="logo-text">TISSO VISION</span>
+      </div>
+      <div class="banner-main">
+        <h1 class="banner-title">{{ section.settings.banner_title }}</h1>
+        <p class="banner-subtitle">{{ section.settings.banner_subtitle }}</p>
+        <div class="banner-buttons">
+          <a href="{{ section.settings.primary_button_link }}" class="btn btn-primary animated-btn">
+            {{ section.settings.primary_button_text }}
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <style>
@@ -177,60 +179,40 @@
 }
 </style>
 
-{%schema %}
+{% schema %}
 {
-    "name":"Custom Banner",
-    "tag": "section",
-    "class":"section",
-    "settings": [
-
-        {
-            "type": "text",
-            "id": "banner_title",
-            "label":"Banner Title",
-            "default":"The Gift Guide"
-        },
-        {
-            "type": "textarea",
-            "id": "banner_subtitle",
-            "label":"Banner Subtitle",
-            "default":"Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
-        },
-        
-        {
-            "type": "text",
-            "id": "primary_button_text",
-            "label":"Primary Button Text",
-            "default":"SHOP NOW"
-        },
-        
-        {
-            "type": "url",
-            "id": "primary_button_link",
-            "label":"Primary BUtton Link",
-            
-        }
-
-    ],
-    "presets":[
-
-        {
-            "name":"Cusotm Banner"
-        }
-
-    ]
-
+  "name": "Custom Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_subtitle",
+      "label": "Banner Subtitle",
+      "default": "Discover our Top Ultimate Holiday Gift Essentials. Explore our curated selection and find the perfect gifts to make this holiday season truly memorable."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
 }
-
-
-
-{%endschema %}
-
-
-
-
-
-
-
-
-
+{% endschema %}

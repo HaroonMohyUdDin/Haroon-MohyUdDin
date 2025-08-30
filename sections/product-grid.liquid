@@ -1,93 +1,100 @@
 <div class="custom-product-grid-section">
     <div class="grid-container">
-        <h2 class="grid-title">{{section.settings_title }} </h2>
+        <h2 class="grid-title">{{ section.settings.title }}</h2>
         <div class="product-grid">
             {% for block in section.blocks %}
-                {%if block.settings.product != blank  %}
-                    {%assign product = all_products[block.settings.product] %}
-                    <div class="product-card" data-product-handle="{{product.handle }}">
-                        <div class="product.image">
-                            {%if product.featured_image %}
-                                <img src="{{product.featured_image | img-url: '600*600' }}" alt="{{product.title }}" loading="lazy">
-                                {%else %}
+               {% if block.settings.product != blank %}
+                    {% assign product = all_products[block.settings.product] %}
+                    <div class="product-card" data-product-handle="{{ product.handle }}">
+                        <div class="product-image">
+                            {% if product.featured_image %}
+                                <img 
+                                    src="{{ product.featured_image | image_url: '600x600' }}" 
+                                    alt="{{ product.title | escape }}" 
+                                    loading="lazy"
+                                    width="{{ product.featured_image.width }}" 
+                                    height="{{ product.featured_image.height }}">
+                            {% else %}
                                 <div class="no-image">No Image</div>
-                            {%endif %}
+                            {% endif %}
                             <div class="product-overlay">
-                                <button class="quick-view-btn" onclick="openProductPopup('{{product.handle }}')">
-                                    Quick view
+                                <button class="quick-view-btn" onclick="openProductPopup('{{ product.handle }}')">
+                                    Quick View
                                 </button>
                             </div>
                         </div>
                     </div>
-                {%endif %}
-            {%endfor %}
+                {% endif %}
+
+            {% endfor %}
         </div>
     </div>
 </div>
 
-{%comment %}
-POP UP
-{%endcomment %}
+{% comment %}
+POPUP
+{% endcomment %}
 
 <div id="product-popup" class="popup-overlay">
-    <div class="popup-content">
-        <button class="popup-close" onclick="closeProductPopup()">&times;</button>
-        <div class="popup-card">
-            <div class="popup-image">
-                <img id="popup-product-image" src=" " alt=" ">
+  <div class="popup-content">
+    <button class="popup-close" onclick="closeProductPopup()">&times;</button>
+    <div class="popup-card">
+      <div class="popup-image">
+        <img 
+          id="popup-product-image" 
+          src="" 
+          alt=""
+          loading="lazy"
+          width="600" 
+          height="600">
+      </div>
+      <div class="popup-details">
+        <h3 id="popup-product-title" class="popup-title"></h3>
+        <div id="popup-product-price" class="popup-price"></div>
+        <div id="popup-product-description" class="popup-description"></div>
+
+        <form id="add-to-cart-form" class="popup-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Color</label>
+              <div class="color-options" id="color-options"></div>
             </div>
-            <div class="popup-details">
-                <h3 id="popup-product-title" class="popup-title"></h3>
-                <div id="popup-product-price" class="popup-price"></div>
-                <div id="popup-product-description" class="popup-description"></div>
+          </div>
 
-                <form id="add-to-cart-form" class="popup-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Color</label>
-                            <div class="color-option" id="color-options"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group size-group">
-                            <label class="form-label">Size</label>
-                            <select id="size-select" class="size-select">
-                                <option value=""> Choose Your Size </option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="add-to-cart-btn">
-                        <span class="btn-text">ADD TO CART </span>
-                        <span class="btn-arrow">-> </span>
-                    </button>
-                </form>
+          <div class="form-row">
+            <div class="form-group size-group">
+              <label class="form-label">Size</label>
+              <select id="size-select" class="size-select">
+                <option value="">Choose Your Size</option>
+              </select>
             </div>
-        </div>
+          </div>
+
+          <button type="submit" class="add-to-cart-btn">
+            <span class="btn-text">ADD TO CART</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <style>
-
-    .custom-product-grid-section{
-    
+    .custom-product-grid-section {
         padding: 60px 20px;
         background-color: #ffffff;
-
     }
 
-    .grid-container{
-    
-        max-width:1200px;
-        margin:0 auto;
+    .grid-container {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 
-    .grid-title{
-    
+    .grid-title {
         font-size: 2.5rem;
-        font-weight:900;
+        font-weight: 900;
         text-align: center;
         margin-bottom: 50px;
         color: #000000;
@@ -95,286 +102,255 @@ POP UP
         letter-spacing: 1px;
     }
 
-    .product-grid{
-    
+    .product-grid {
         display: grid;
-        grid-template-columns: repeat(3,1fr);
-        grid-template-rows: repeat(2,1fr);
-        gap:20px;
-        height:800px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 20px;
+        height: 800px;
     }
 
-    .product.card{
-    
+    .product-card {
         background: #ffffff;
         border: 3px solid #000000;
-        overflow:hidden;
+        overflow: hidden;
         transition: all 0.3s ease;
-        position:relative;
+        position: relative;
         cursor: pointer;
     }
 
-    .product-card:hover{
-    
-        transform:translateY(-5px);
-        box-shadow:8px 8px 0px #000000;
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 8px 8px 0px #000000;
     }
 
-    .product-image{
-    
-        position:relative;
-        height:100%;
-        overflow:hidden;
+    .product-image {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
     }
     
-    .prodcut-image img{
-    
-        width:100%;
-        height:100%;
-        object-fit:cover;
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         transition: transform 0.3s ease;
     }
 
-    .product-card:hover .product-image img{
-    
-        transform: scale(1.05)
-
+    .product-card:hover .product-image img {
+        transform: scale(1.05);
     }
 
-    .no.image{
-    
-        width:100%;
-        height:100%;
+    .no-image {
+        width: 100%;
+        height: 100%;
         display: flex;
-        align-items:center;
-        justify-content:center;
+        align-items: center;
+        justify-content: center;
         background: #f0f0f0;
         color: #666;
-        font-weight:600;
-
+        font-weight: 600;
     }
 
-{%comment %}
-Overlay styles
-{%endcomment %}
+    {% comment %}
+    Overlay styles
+    {% endcomment %}
 
-    .product-overlay{
-        
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        background: rgba(0,0,0,0.8);
-        display:flex;
-        align-items:center;
+    .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
         justify-content: center;
-        opacity:0;
+        opacity: 0;
         transition: opacity 0.3s ease;
     }
 
-    .prodcut-card:hover .product-overlay{
-    
+    .product-card:hover .product-overlay {
         opacity: 1;
     }
 
-    .quick-view-btn{
-    
+    .quick-view-btn {
         background: #ffffff;
         color: #000000;
-        border:3px solid #000000;
+        border: 3px solid #000000;
         padding: 12px 24px;
-        font-weight:700;
+        font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
-        text-transform: 1px;
+        text-transform: uppercase;
         letter-spacing: 1px;
-        font-size: 0.9 rem;
+        font-size: 0.9rem;
     }
 
-    .quick-view-btn:hover{
-    
+    .quick-view-btn:hover {
         background: #000000;
         color: #ffffff;
         transform: scale(1.05);
     }
 
-/*Popup  styles*/
+    /* Popup styles */
 
-    .popup-overlay{
-        
-        position:fixed;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background: rgba(0,0,0,0.8);
-        display:none;
-        align-items:center;
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
         justify-content: center;
-        z-index:1000;
-        opacity:0;
+        z-index: 1000;
+        opacity: 0;
         transition: opacity 0.3s ease;
-    
     }
 
-    .popup-overlay.show{
-    
-        display:flex;
-        opacity:1;
+    .popup-overlay.show {
+        display: flex;
+        opacity: 1;
     }
 
-    .popup-content{
-     background: #ffffff;
-     border-radius:12px;
-     width:400px;
-     max-height:90vh;
-     max-width:90vw;
-     position:relative;
-     overflow:hidden;
-     transform: scale(0.8);
-     transition: transform 0.3s ease;
-     box-shadow: 0 20 px 60px rgba(0, 0, 0 ,0.3);
+    .popup-content {
+        background: #ffffff;
+        border-radius: 12px;
+        width: 400px;
+        max-height: 90vh;
+        max-width: 90vw;
+        position: relative;
+        overflow: hidden;
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
-    .popup-overlay.show .popup-content{
-    
-        transform: scale(1);           
+    .popup-overlay.show .popup-content {
+        transform: scale(1);
     }
 
-    .popup-close{
-    
+    .popup-close {
         position: absolute;
-        top:15px;
-        right:15px;
-        background: rgba(255,255,255,0.9);
-        border:none;
-        font-size:1.5rem;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        font-size: 1.5rem;
         cursor: pointer;
         color: #000000;
         z-index: 1001;
-        width:35px;
+        width: 35px;
         height: 35px;
-        display:flex;
+        display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        font-weight:bold;
-        transition:all 0.3s ease;
+        font-weight: bold;
+        transition: all 0.3s ease;
         backdrop-filter: blur(10px);
     }
 
-    .popup-close:hover{
-            
+    .popup-close:hover {
         background: rgba(0, 0, 0, 0.8);
         color: #ffffff;
     }
-/*popup content style */
+
+    /* Popup content styles */
  
-    .popup-card{
-    
-        display:flex;
-        flex-direction:column;
+    .popup-card {
+        display: flex;
+        flex-direction: column;
     }
 
-    .popup-image{
-    
+    .popup-image {
         width: 100%;
-        height: 100;
+        height: 300px;
         overflow: hidden;
-
     }
 
-    .popup-image img{
-    
+    .popup-image img {
         width: 100%;
-        height: 100;
+        height: 100%;
         object-fit: cover;
-
     }
 
     .popup-details {
-    
         padding: 24px;
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
 
-    .popup-title{
-    
-        font-size: 1.1 rem;
+    .popup-title {
+        font-size: 1.1rem;
         font-weight: 600;
         color: #000000;
         margin: 0;
-        line-height:1.3;
-
+        line-height: 1.3;
     }
 
-    .popup-price{
-    
+    .popup-price {
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
     .popup-price .price,
-    .popup-price .price-sale
-    {
-        
-        font-size: 1.1 rem;
-        font-weight:700;
+    .popup-price .price-sale {
+        font-size: 1.1rem;
+        font-weight: 700;
         color: #000000;
     }
 
-    .popup-price .price-compare{
-    
+    .popup-price .price-compare {
         font-size: 0.95rem;
         color: #999;
         text-decoration: line-through;
     }
 
     .popup-description {
-    
         font-size: 0.85rem;
         line-height: 1.4;
         color: #666;
         margin: 0; 
     }
 
-/*From style*/
+    /* Form styles */
 
-    .popup-form{
-    
-        display:flex;
-        flex-direction: column;
-        gap: 20px
-    }
-
-    .form-row{
-    
+    .popup-form {
         display: flex;
         flex-direction: column;
-
+        gap: 20px;
     }
 
-    .form-group{
-    
-        display:flex;
+    .form-row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        display: flex;
         flex-direction: column;
         gap: 8px;
     }
 
-    .form-label{
-    
+    .form-label {
         font-size: 0.9rem;
-        font-size: 600;
+        font-weight: 600;
         color: #000000;
         margin: 0;
     }
 
-    .color-option{
-    
+    .color-options {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .color-option {
         width: 60px;
         height: 35px;
         border: 2px solid #e5e5e5;
@@ -391,39 +367,36 @@ Overlay styles
         color: #666;
     }
 
-    .color-option:hover{
-    
+    .color-option:hover {
         border-color: #000000;
     }
 
-    .color-option.selected{
-    
+    .color-option.selected {
         border-color: #000000;
         background: #000000;
         color: #ffffff;
     }
 
-    .color-option.black { background: #000000; color: #ffffff}
-    .color-option.blue { background: #1340af; color: #ffffff}
-    .color-option.red { background: #dc2626; color: #ffffff}
-    .color-option.grey { background: #6b7280; color: #ffffff}
-    .color-option.white { background: #ffffff; color: #333; border-color: #e5e5e5}
+    .color-option.black { background: #000000; color: #ffffff; }
+    .color-option.blue { background: #1340af; color: #ffffff; }
+    .color-option.red { background: #dc2626; color: #ffffff; }
+    .color-option.grey { background: #6b7280; color: #ffffff; }
+    .color-option.white { background: #ffffff; color: #333; border-color: #e5e5e5; }
+    .color-option.brown { background: #8b4513; color: #ffffff; }
+    .color-option.pink { background: #ec4899; color: #ffffff; }
+    .color-option.beige { background: #f5f5dc; color: #333; border-color: #e5e5e5; }
 
-
-/*Size select style*/
-    .size-group{
-    
-        width:100%;
+    /* Size select styles */
+    .size-group {
+        width: 100%;
     }
 
-    .size-select{
-        
+    .size-select {
         width: 100%;
         padding: 12px 16px;
         padding-right: 40px;
         border: 2px solid #e5e5e5;
         cursor: pointer;
-        justify-content: center;
         font-size: 0.9rem;
         font-weight: 500;
         letter-spacing: 0.5px;
@@ -431,36 +404,34 @@ Overlay styles
         appearance: none;
         background: #ffffff;
         background-size: 16px;
-        background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-        background-repeat:no-repeat;
-        background-position: right 12px center;        
-        color: #666;        
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        color: #666;
     }
 
-    .size-select:focus{
-    
+    .size-select:focus {
         outline: none;
         border-color: #000000;
         color: #000000;
     }
 
-    .size-select:not([value=""]){
-    
+    .size-select:not([value=""]) {
         color: #000000;
         font-weight: 600;
     }
 
-/*ADD to cart button style*/
+    /* ADD to cart button styles */
 
-    .add-to-cart-btn{
-
+    .add-to-cart-btn {
         width: 100%;
-        height: 35px;
+        height: 48px;
         border: none;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        padding: 0 20px;
         font-size: 0.9rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -471,91 +442,202 @@ Overlay styles
         margin-top: 8px;
     }
 
-    .add-to-cart-btn:hover{
-    
-        background: #cccccc;
+    .add-to-cart-btn:hover {
+        background: #333333;
         transform: translateY(-1px);
-
     }
 
-    .add-to-cart-btn:disabled{
-    
+    .add-to-cart-btn:disabled {
         background: #cccccc;
         cursor: not-allowed;
         transform: none;
     }
 
-    .btn-text{
-    
-        flex:1;
-        text-align: center
+    .btn-text {
+        flex: 1;
+        text-align: center;
     }
     
-    .btn-arrow{
-    
+    .btn-arrow {
         font-size: 1.2rem;
         transition: transform 0.3s ease;
     }
 
-    .add-to-cart-btn:hover .btn-arrow{
-        
+    .add-to-cart-btn:hover .btn-arrow {
         transform: translateX(3px);
-
     }
 
-/* RESPONSIVE */
+    /* RESPONSIVE */
 
-    @media (max-width: 768px){
-        
-        .custom-product-grid-section{
-        
+    @media (max-width: 768px) {
+        .custom-product-grid-section {
             padding: 40px 15px;
         }
 
-        .gird-title{
-        
-            font-size:2rem;
+        .grid-title {
+            font-size: 2rem;
             margin-bottom: 30px;
-
         }
     
-        .product-grid{
-        
+        .product-grid {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(3, 1fr);
             gap: 15px;
             height: 600px;
         }
-    
     }
 
-    @media(max-width 480px){
+    @media (max-width: 480px) {
         .product-grid {
-        
             grid-template-columns: 1fr;
             grid-template-rows: repeat(6, 1fr);
             gap: 10px;
             height: 1200px;
-        
         }
 
-        .popup-content{
-        
+        .popup-content {
             width: 95%;
-            margin:10px;
-
+            margin: 10px;
         }
 
-        .popup-details{
-        
-            padding:20px 15px;
+        .popup-details {
+            padding: 20px 15px;
         }
 
-        .grid-title{
+        .grid-title {
             font-size: 1.5rem;
         }
-    
     }
-    
 </style>
 
+<script>
+    
+    const productData = {
+        'orange-wide-leg': {
+            title: 'Orange Wide Leg',
+            price: '980,00€',
+            image: 'https://www.figma.com/proto/p0OuoQgeetLtfOdrKFYWiM/Test-for-Candidates?node-id=1-1588&p=f&t=Q99VKcUOfsuk5WYa-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A1588',
+            colors: ['White', 'Black'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'Comfortable wide-leg pants perfect for any occasion.'
+            
+        },
+        'tailored-jacket': {
+            title: 'Tailored Jacket',
+            price: '870,00€',
+            image: 'https://via.placeholder.com/400x500?text=Tailored+Jacket',
+            colors: ['Blue', 'Black'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'A perfectly tailored jacket for professional and casual wear.'
+        },
+        'accordion-pleated-dress': {
+            title: 'Accordion Pleated Dress',
+            price: '650,00€',
+            image: 'https://via.placeholder.com/400x500?text=Accordion+Pleated+Dress',
+            colors: ['Red', 'Grey'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'Elegant accordion pleated dress with a modern silhouette.'
+        },
+        'classic-blazer': {
+            title: 'Classic Blazer',
+            price: '720,00€',
+            image: 'https://via.placeholder.com/400x500?text=Classic+Blazer',
+            colors: ['Brown', 'Black'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'A timeless classic blazer that never goes out of style.'
+        },
+        'slim-fit-pants': {
+            title: 'Slim Fit Pants',
+            price: '430,00€',
+            image: 'https://via.placeholder.com/400x500?text=Slim+Fit+Pants',
+            colors: ['White', 'Beige'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'Sleek slim-fit pants for a modern, tailored look.'
+        },
+        'silk-top': {
+            title: 'Silk Top',
+            price: '280,00€',
+            image: 'https://via.placeholder.com/400x500?text=Silk+Top',
+            colors: ['Pink', 'Black'],
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            description: 'Luxurious silk top with a comfortable, elegant fit.'
+        }
+    };
+
+    function openProductPopup(productHandle) {
+        const popup = document.getElementById('product-popup');
+        const product = productData[productHandle];
+        
+        if (!product) return;
+
+        // Populate popup content
+        document.getElementById('popup-product-image').src = product.image;
+        document.getElementById('popup-product-image').alt = product.title;
+        document.getElementById('popup-product-title').textContent = product.title;
+        document.getElementById('popup-product-price').textContent = product.price;
+        document.getElementById('popup-product-description').textContent = product.description;
+
+        // Populate colors
+        const colorsContainer = document.getElementById('color-options');
+        colorsContainer.innerHTML = '';
+        product.colors.forEach((color, index) => {
+            const colorOption = document.createElement('div');
+            colorOption.className = `color-option ${color.toLowerCase()}${index === 0 ? ' selected' : ''}`;
+            colorOption.textContent = color;
+            colorOption.onclick = () => selectColor(colorOption);
+            colorsContainer.appendChild(colorOption);
+        });
+
+        // Populate sizes
+        const sizeSelect = document.getElementById('size-select');
+        sizeSelect.innerHTML = '<option value="">Choose Your Size</option>';
+        product.sizes.forEach(size => {
+            const option = document.createElement('option');
+            option.value = size;
+            option.textContent = size;
+            sizeSelect.appendChild(option);
+        });
+
+        // Show popup
+        popup.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeProductPopup() {
+        const popup = document.getElementById('product-popup');
+        popup.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function selectColor(selectedOption) {
+        document.querySelectorAll('.color-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        selectedOption.classList.add('selected');
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('product-popup').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeProductPopup();
+        }
+    });
+
+    // Handle form submission
+    document.getElementById('add-to-cart-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const selectedColor = document.querySelector('.color-option.selected')?.textContent;
+        const selectedSize = document.getElementById('size-select').value;
+        
+        if (!selectedSize) {
+            alert('Please select a size');
+            return;
+        }
+        
+        // Here you would typically add the product to cart
+        // For demo purposes, just show an alert
+        alert(`Added to cart: ${selectedColor} ${selectedSize}`);
+        closeProductPopup();
+    });
+</script>

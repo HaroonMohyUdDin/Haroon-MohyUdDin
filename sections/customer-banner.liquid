@@ -3,8 +3,8 @@
   <div class="banner-container">
     <!-- Header -->
     <div class="banner-header">
-      <div class="brand-name editable-text">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
-      <div class="header-text editable-text">{{ section.settings.header_text | default: 'Find the ideal gift for your loved ones.' }}</div>
+      <div class="brand-name editable-text">{{ section.settings.brand_name | default: 'TISSO VISION' }}</div>
+      <div class="header-text editable-text">{{ section.settings.header_text | default: 'Find the label gift for your loved ones' }}</div>
       <div class="cta-button">
         <a href="{{ section.settings.cta_link | default: '/collections/gifts' }}" class="animated-btn">
           <span class="editable-text">{{ section.settings.cta_text | default: 'CHOOSE GIFT' }}</span>
@@ -30,7 +30,7 @@
 
     <!-- Footer -->
     <div class="banner-footer">
-      <p class="editable-text">{{ section.settings.footer_text | default: 'SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 5XL' }}</p>
+      <p class="editable-text">{{ section.settings.footer_text | default: 'SURROUND 1 ENTERGATE WATCH CHOOSING IN SEEKS AND TOP AIR' }}</p>
     </div>
   </div>
 </div>
@@ -42,10 +42,11 @@
   background-repeat: no-repeat;
   min-height: 100vh;
   padding: 40px 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Helvetica', 'Arial', sans-serif;
   position: relative;
   display: flex;
   align-items: center;
+  color: #000;
 }
 
 .banner-overlay {
@@ -89,23 +90,20 @@
 }
 
 .brand-name {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
   letter-spacing: 2px;
   color: #000;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 12px;
-  border: 2px solid #000;
+  text-transform: uppercase;
 }
 
 .header-text {
-  font-size: 16px;
+  font-size: 14px;
   color: #000;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 12px;
-  border: 2px solid #000;
-  max-width: 300px;
   text-align: center;
+  max-width: 300px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
 }
 
 .cta-button {
@@ -113,11 +111,11 @@
 }
 
 .cta-button a {
-  background-color: #ffeb3b;
+  background-color: transparent;
   color: #000;
-  padding: 12px 24px;
+  padding: 8px 0;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 14px;
   letter-spacing: 1px;
   display: inline-flex;
@@ -125,6 +123,8 @@
   gap: 8px;
   border: none;
   text-transform: uppercase;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
 }
 
 /* Button Animations */
@@ -136,8 +136,7 @@
 }
 
 .animated-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
 }
 
 .animated-btn::before {
@@ -162,12 +161,6 @@
 
 .animated-btn:hover .arrow {
   transform: translateX(5px);
-  animation: bounce 0.6s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateX(5px); }
-  50% { transform: translateX(8px); }
 }
 
 /* Main Content */
@@ -178,30 +171,24 @@
 }
 
 .banner-title {
-  font-size: 72px;
-  font-weight: 900;
+  font-size: 70px;
+  font-weight: 300;
   margin-bottom: 30px;
   color: #000;
-  line-height: 0.9;
-  text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  display: inline-block;
+  line-height: 1;
+  letter-spacing: 1px;
 }
 
 .banner-description {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   color: #000;
   margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 20px;
-  border-left: 4px solid #000;
+  font-weight: 300;
 }
 
 .banner-description p {
   margin: 0 0 12px 0;
-  font-weight: 500;
 }
 
 .banner-description p:last-child {
@@ -209,22 +196,23 @@
 }
 
 .shop-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 18px 36px;
+  background-color: transparent;
+  color: #000;
+  padding: 12px 0;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 14px;
   letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
   text-transform: uppercase;
-  border: 3px solid #000;
+  border-bottom: 1px solid #000;
+  border-radius: 0;
 }
 
 .shop-btn:hover {
-  background-color: #333;
+  color: #333;
 }
 
 /* Footer */
@@ -237,14 +225,13 @@
 }
 
 .banner-footer p {
-  font-size: 12px;
+  font-size: 10px;
   color: #000;
   letter-spacing: 2px;
   margin: 0;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 16px;
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
+  opacity: 0.7;
 }
 
 /* Responsive */
@@ -254,7 +241,7 @@
   }
   
   .banner-description {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -286,12 +273,19 @@
   }
   
   .brand-name {
-    font-size: 20px;
+    font-size: 16px;
   }
   
   .header-text {
-    font-size: 14px;
+    font-size: 13px;
     max-width: 250px;
+  }
+  
+  .banner-footer {
+    position: relative;
+    bottom: auto;
+    transform: none;
+    margin-top: 40px;
   }
 }
 
@@ -303,24 +297,15 @@
   
   .banner-description {
     font-size: 14px;
-    padding: 15px;
   }
   
   .shop-btn {
-    padding: 15px 25px;
-    font-size: 14px;
-  }
-  
-  .banner-footer {
-    position: relative;
-    bottom: auto;
-    transform: none;
-    margin-top: 40px;
+    padding: 10px 0;
+    font-size: 13px;
   }
   
   .banner-footer p {
-    font-size: 10px;
-    padding: 6px 12px;
+    font-size: 9px;
   }
 }
 
@@ -363,13 +348,13 @@
       "type": "text",
       "id": "brand_name",
       "label": "Brand Name",
-      "default": "TISSO VISON"
+      "default": "TISSO VISION"
     },
     {
       "type": "text",
       "id": "header_text",
       "label": "Header Text",
-      "default": "Find the ideal gift for your loved ones."
+      "default": "Find the label gift for your loved ones"
     },
     {
       "type": "text",
@@ -420,7 +405,7 @@
       "type": "text",
       "id": "footer_text",
       "label": "Footer Text",
-      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 5XL"
+      "default": "SURROUND 1 ENTERGATE WATCH CHOOSING IN SEEKS AND TOP AIR"
     }
   ],
   "presets": [
